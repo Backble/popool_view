@@ -85,73 +85,40 @@
       </header>
 
       <main>
-        <div class="p-5 mb-4 bg-light rounded-3">
-          <div class="container-fluid py-5">
-            <h1 class="display-5 fw-bold">Popool</h1>
-            <p class="col-md-8 fs-4">MSA 기반 인사이력 블록체인 검증 시스템</p>
-            <button class="btn btn-primary btn-lg" type="button">
-              시작하기
-            </button>
+        <div class="container" style="max-width: 500px">
+          <h2 style="text-align: center">이재준 평가하기</h2>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="relationship"
+              style="width: 100%; margin: 1%"
+              placeholder="직장 상사"
+            />
+            <label for="relationship">이재준과 관계</label>
           </div>
-        </div>
-        <div class="row g-5">
-          <div class="col-md-6">
-            <h2>Popool 이용권</h2>
-            <p>
-              이용권을 구매하여 검증된 인사이력 정보를 확인할 수 있습니다.
-              Popool은 자체 검증시스템을 도입하여 정확한 인사이력 정보를
-              제공합니다
-            </p>
-            <ul class="icon-list">
-              <li>
-                <a
-                  href="https://github.com/twbs/bootstrap-npm-starter"
-                  rel="noopener"
-                  target="_blank"
-                  >이용권 구매하기</a
-                >
-              </li>
-              <li class="text-muted">
-                <a
-                  href="https://github.com/twbs/bootstrap-npm-starter"
-                  rel="noopener"
-                  target="_blank"
-                  >기간권 구매하기</a
-                >
-              </li>
-              <li class="text-muted">
-                <a
-                  href="https://github.com/twbs/bootstrap-npm-starter"
-                  rel="noopener"
-                  target="_blank"
-                  >구독권 구매하기</a
-                >
-              </li>
-            </ul>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              id="inputIntroduce"
+              placeholder="2022-06-29"
+              style="width: 100%; margin: 1%; height: 300px"
+            ></textarea>
+            <label for="inputIntroduce">평가내용</label>
           </div>
 
-          <div class="col-md-6">
-            <h2>Popool 평가</h2>
-            <p>
-              여러분의 동료를 직접 평가하여 더 큰 무대위로 나아갈 수 있도록
-              도와주세요! 언제나 Popool이 응원하고 함께하겠습니다
-            </p>
-            <ul class="icon-list">
-              <li>
-                <a href="/docs/5.1/getting-started/introduction/"
-                  >나의 평가 보러가기</a
-                >
-              </li>
-              <li>
-                <a href="/docs/5.1/getting-started/webpack/">동료 평가하기</a>
-              </li>
-            </ul>
-          </div>
+          <button
+            type="button"
+            class="btn btn-lg btn-success"
+            style="width: 100%; margin: 1%"
+            onclick="goSignIn()"
+          >
+            평가하기
+          </button>
         </div>
       </main>
       <br />
       <hr />
-
       <footer>
         <p style="text-align: center">
           The Popool service was created on April 12, 2022.
