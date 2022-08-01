@@ -86,36 +86,90 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <form>
-        <img class="mb-4" src="logo.png" alt="" width="72" height="72" />
-        <h1 class="h3 mb-3 fw-normal">Sign in</h1>
+      <img class="mb-4" src="logo.png" alt="" width="72" height="72" />
+      <h1 class="h3 mb-3 fw-normal">Sign in</h1>
 
-        <div class="form-floating">
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
-          <label for="floatingInput">Email address</label>
-        </div>
-        <div class="form-floating">
-          <input
-            type="password"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-          />
-          <label for="floatingPassword">Password</label>
-        </div>
+      <div class="form-floating">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+        />
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+        />
+        <label for="floatingPassword">Password</label>
+      </div>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">
-          <a href="signup.html" style="color: white; text-decoration: none"
-            >Sign in</a
-          >
-        </button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
-      </form>
+      <button class="w-100 btn btn-lg btn-primary" onclick="signin()">
+        signIn
+      </button>
+      <button
+        class="w-100 btn btn-lg btn-secondary"
+        style="margin-top: 1%; margin-bottom: 1%"
+        onclick="googleSignIn()"
+      >
+        SignIn Google
+      </button>
+      <button
+        class="w-100 btn btn-lg btn-warning"
+        style="margin-top: 1%; margin-bottom: 1%"
+        onclick="kakaoSignIn()"
+      >
+        SignIn KaKaO
+      </button>
+      <button
+        class="w-100 btn btn-lg btn-success"
+        style="margin-top: 1%; margin-bottom: 1%"
+        onclick="naverSignIn()"
+      >
+        SignIn Naver
+      </button>
+      <a href="/signup.html">회원가입</a>
+      <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
     </main>
   </body>
+  <script>
+    function googleSignIn() {
+      axios
+        .post("http://localhost:8080/oauth/google/login", {
+          code: "",
+          provider: "google",
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    function kakaoSignIn() {
+      axios
+        .post("http://localhost:8080/oauth/kakao")
+        .then(function (response) {
+          console.log(response);
+          location.href = response;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    function naverSignIn() {
+      axios
+        .post("http://localhost:8080/oauth/naver/login")
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  </script>
 </html>
