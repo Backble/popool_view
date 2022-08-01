@@ -154,8 +154,7 @@
       axios
         .post("http://localhost:8080/oauth/kakao")
         .then(function (response) {
-          const responseData = JSON.parse(response);
-          console.log(responseData.data);
+          console.log(response.data);
           console.log(JSON.stringify(response));
         })
         .catch(function (error) {
