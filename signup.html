@@ -89,92 +89,137 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <form>
-        <img class="mb-4" src="logo.png" alt="" width="72" height="72" />
-        <h1 class="h3 mb-3 fw-normal">Sign up</h1>
-        <main>
-          <div class="form-floating">
-            <input
-              type="email"
-              class="form-control"
-              id="inputEmail"
-              placeholder="name@example.com"
-            />
-            <label for="inputEmail">이메일</label>
-          </div>
-
-          <div class="form-floating">
-            <input
-              type="text"
-              class="form-control"
-              id="inputPassword"
-              placeholder="비밀번호"
-            />
-            <label for="inputPassword">비밀번호</label>
-          </div>
-
-          <div class="form-floating">
-            <input
-              type="text"
-              class="form-control"
-              id="inputPassword2"
-              placeholder="비밀번호 재입력"
-            />
-            <label for="inputPassword2">비밀번호 재입력</label>
-          </div>
-
-          <div class="form-floating">
-            <input
-              type="text"
-              class="form-control"
-              id="inputName"
-              placeholder="홍길동"
-            />
-            <label for="inputName">이름</label>
-          </div>
-
-          <div class="form-floating">
-            <input
-              type="text"
-              class="form-control"
-              id="inputCompany"
-              placeholder="2022-06-29"
-            />
-            <label for="inputCompany">회사명</label>
-          </div>
-          <div class="form-floating">
-            <textarea
-              class="form-control"
-              id="inputIntroduce"
-              placeholder="2022-06-29"
-              style="height: 100px"
-            ></textarea>
-            <label for="inputIntroduce">소개</label>
-          </div>
-          <div class="form-floating">
-            <input
-              type="date"
-              class="form-control"
-              id="inputDate"
-              placeholder="2022-06-29"
-            />
-            <label for="inputDate">생년월일</label>
-          </div>
-          <label for="inputfile">프로필 사진 등록</label>
+      <img class="mb-4" src="logo.png" alt="" width="72" height="72" />
+      <h1 class="h3 mb-3 fw-normal">Sign up</h1>
+      <main>
+        <div class="form-floating">
           <input
-            type="file"
-            class="form-control form-floating"
-            id="inputfile"
-            value="사진"
+            type="email"
+            class="form-control"
+            id="inputEmail"
+            placeholder="name@example.com"
           />
-        </main>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">
-          <a href="index.html" style="color: white; text-decoration: none"
-            >Sign up</a
-          >
-        </button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
-      </form>
+          <label for="inputEmail">이메일</label>
+        </div>
+
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="inputPassword"
+            placeholder="비밀번호"
+          />
+          <label for="inputPassword">비밀번호</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="inputPassword2"
+            placeholder="비밀번호 재입력"
+          />
+          <label for="inputPassword2">비밀번호 재입력</label>
+        </div>
+
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="inputName"
+            placeholder="홍길동"
+          />
+          <label for="inputName">이름</label>
+        </div>
+
+        <div class="form-floating">
+          <input
+            type="tel"
+            class="form-control"
+            id="inputPhone"
+            placeholder="010-1234-1234"
+          />
+          <label for="inputPhone">전화번호</label>
+        </div>
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            id="inputIntroduce"
+            placeholder="2022-06-29"
+            style="height: 100px"
+          ></textarea>
+          <label for="inputIntroduce">소개</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="date"
+            class="form-control"
+            id="inputDate"
+            placeholder="2022-06-29"
+          />
+          <label for="inputDate">생년월일</label>
+        </div>
+        <select
+          id="inputGender"
+          class="form-select"
+          style="margin-bottom: 10px"
+        >
+          <option value="" selected disabled hidden>성별</option>
+          <option value="MALE">남자</option>
+          <option value="FEMALE">여자</option>
+        </select>
+        <select id="inputIsJob" class="form-select" style="margin-bottom: 10px">
+          <option value="" selected disabled hidden>재직여부</option>
+          <option value="RANK_CORPORATE">예</option>
+          <option value="RANK_NORMAL">아니오</option>
+        </select>
+      </main>
+      <button class="w-100 btn btn-lg btn-primary" onclick="createAuth()">
+        Sign Up
+      </button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
     </main>
   </body>
+  <script>
+    const inputEmail = document.getElementById("inputEmail");
+    const inputPassword = document.getElementById("inputPassword");
+    const inputPassword2 = document.getElementById("inputPassword2");
+    const inputName = document.getElementById("inputName");
+    const inputPhone = document.getElementById("inputPhone");
+    const inputDate = document.getElementById("inputDate");
+    const inputGender = document.getElementById("inputGender");
+    const inputIsJob = document.getElementById("inputIsJob");
+    function createAuth() {
+      const genderRst = inputGender.options[inputGender.selectedIndex].value;
+      const isJob = inputIsJob.options[inputIsJob.selectedIndex].value;
+      axios
+        .post(
+          "http://bblmember-env.eba-7mvxcw8b.ap-northeast-2.elasticbeanstalk.com/members/signUp",
+          {
+            birth: inputDate.value,
+            checkPassword: inputPassword.value,
+            gender: genderRst,
+            identity: inputEmail.value,
+            memberRank: isJob,
+            memberRole: "ROLE_MEMBER",
+            name: inputName.value,
+            password: inputPassword2.value,
+            phone: inputPhone.value,
+          }
+        )
+        .then(function (response) {
+          const jsonData = response.data;
+          if (jsonData.code == "1") {
+            alert("회원가입 성공");
+            location.href = "index.html";
+          } else if (jsonData.code == "2") {
+            alert(jsonData.description);
+          } else if (jsonData.code == "3") {
+            alert("회원가입 토큰만료");
+          }
+        })
+        .catch(function (error) {
+          alert("오류발생" + error);
+        });
+    }
+  </script>
 </html>
