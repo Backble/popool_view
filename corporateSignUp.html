@@ -93,17 +93,17 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <img class="mb-4" src="logo.png" alt="" width="72" height="72" />
-      <h1 class="h3 mb-3 fw-normal">Sign up</h1>
+      <img class="mb-4" src="image/logo.png" alt="" width="72" height="72" />
+<!--      <h1 class="h3 mb-3 fw-normal">Sign up</h1>-->
       <main>
         <div class="form-floating">
           <input
             type="email"
             class="form-control"
-            id="inputEmail"
-            placeholder="name@example.com"
+            id="inputIdentity"
+            placeholder="Identity"
           />
-          <label for="inputEmail">이메일</label>
+          <label for="inputIdentity">아이디</label>
         </div>
 
         <div class="form-floating">
@@ -145,15 +145,6 @@
           <label for="inputPhone">전화번호</label>
         </div>
         <div class="form-floating">
-          <textarea
-            class="form-control"
-            id="inputIntroduce"
-            placeholder="2022-06-29"
-            style="height: 100px"
-          ></textarea>
-          <label for="inputIntroduce">소개</label>
-        </div>
-        <div class="form-floating">
           <input
             type="date"
             class="form-control"
@@ -178,48 +169,42 @@
         </select>
       </main>
       <button class="w-100 btn btn-lg btn-primary" onclick="createAuth()">
-        Sign Up
+        회원가입
       </button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+      <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </main>
   </body>
   <script>
-    const inputEmail = document.getElementById("inputEmail");
+    const inputIdentity = document.getElementById("inputIdentity");
     const inputPassword = document.getElementById("inputPassword");
     const inputPassword2 = document.getElementById("inputPassword2");
     const inputName = document.getElementById("inputName");
-    const inputPhone = document.getElementById("inputPhone");
+    const inputPhoneNumber = document.getElementById("inputPhoneNumber");
     const inputDate = document.getElementById("inputDate");
     const inputGender = document.getElementById("inputGender");
-    const inputIsJob = document.getElementById("inputIsJob");
     function createAuth() {
       const genderRst = inputGender.options[inputGender.selectedIndex].value;
-      const isJob = inputIsJob.options[inputIsJob.selectedIndex].value;
       axios
         .post(
-          "http://bblmember-env.eba-7mvxcw8b.ap-northeast-2.elasticbeanstalk.com/members/signUp",
+          "http://127.0.0.1:8000/bbl-member/member/signUp",
           {
             birth: inputDate.value,
             checkPassword: inputPassword.value,
             gender: genderRst,
-            identity: inputEmail.value,
-            memberRank: isJob,
-            memberRole: "ROLE_MEMBER",
+            identity: inputIdentity.value,
             name: inputName.value,
             password: inputPassword2.value,
-            phone: inputPhone.value,
+            phoneNumber: inputPhoneNumber.value,
           },
           { withCredentials: true }
         )
         .then(function (response) {
-          const jsonData = response.data;
-          if (jsonData.code == "1") {
+          const jsonData = response;
+          if (jsonData.result) {
             alert("회원가입 성공");
             location.href = "/";
-          } else if (jsonData.code == "2") {
+          } else if (!jsonData) {
             alert(jsonData.description);
-          } else if (jsonData.code == "3") {
-            alert("회원가입 토큰만료");
           }
         })
         .catch(function (error) {

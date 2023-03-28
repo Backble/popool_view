@@ -91,17 +91,17 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <img class="mb-4" src="logo.png" alt="" width="72" height="72" />
-      <h1 class="h3 mb-3 fw-normal">Sign in</h1>
+      <img class="mb-4" src="./image/logo.png" alt="" width="72" height="72" />
+<!--      <h1 class="h3 mb-3 fw-normal"></h1>-->
 
       <div class="form-floating">
         <input
           type="email"
           class="form-control"
-          id="floatingInput"
-          placeholder="name@example.com"
+          id="floatingIdentity"
+          placeholder="Identity"
         />
-        <label for="floatingInput">Email address</label>
+        <label for="floatingIdentity">Identity</label>
       </div>
       <div class="form-floating">
         <input
@@ -113,67 +113,43 @@
         <label for="floatingPassword">Password</label>
       </div>
 
-      <button class="w-100 btn btn-lg btn-primary" onclick="signin()">
-        signIn
+      <button class="w-100 btn btn-lg btn-primary" onclick="signIn()">
+        로그인
       </button>
-      <button
-        class="w-100 btn btn-lg btn-secondary"
-        style="margin-top: 1%; margin-bottom: 1%"
-        onclick="googleSignIn()"
-      >
-        SignIn Google
-      </button>
-      <button
-        class="w-100 btn btn-lg btn-warning"
-        style="margin-top: 1%; margin-bottom: 1%"
-        onclick="kakaoSignIn()"
-      >
-        SignIn KaKaO
-      </button>
-      <button
-        class="w-100 btn btn-lg btn-success"
-        style="margin-top: 1%; margin-bottom: 1%"
-        onclick="naverSignIn()"
-      >
-        SignIn Naver
-      </button>
-      <a href="/signup.html">회원가입</a>
-      <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+      <a
+              class="w-100 btn btn-lg btn-secondary"
+              style="margin-top: 1%; margin-bottom: 1%"
+              href="http://localhost:63342/backble.github.io/signUp.html">회원가입
+      </a>
+      <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </main>
   </body>
   <script>
-    function googleSignIn() {
-      axios
-        .post("http://localhost:8080/oauth/google/login", {
-          code: "",
-          provider: "google",
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-    function kakaoSignIn() {
-      axios
-        .post("http://localhost:8080/oauth/kakao")
-        .then(function (response) {
-          location.href = response.data.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-    function naverSignIn() {
-      axios
-        .post("http://localhost:8080/oauth/naver/login")
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    const floatingIdentity = document.getElementById("floatingIdentity");
+    const floatingPassword = document.getElementById("floatingPassword");
+    function signIn() {
+      axios({
+        url: 'http://localhost:8000/bbl-member/member/login',
+        method: 'post',
+        data:{
+          identity: floatingIdentity.value,
+          password: floatingPassword.value
+        }
+      }).then(
+              function signIn(response) {
+                const jsonData = response.data;
+                if(jsonData.result) {
+                  alert("로그인에 성공하셨습니다.");
+                  location.href = "http://localhost:63342/backble.github.io/";
+                }else{
+                  alert(jsonData.message)
+                }
+              }
+      ).catch(
+              function (error) {
+                alert("오류발생 : " + error);
+              }
+      );
     }
   </script>
 </html>
