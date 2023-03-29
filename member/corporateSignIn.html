@@ -91,15 +91,13 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <img class="mb-4" src="image/logo.png" alt="" width="72" height="72" />
+      <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
 
       <div class="form-floating">
-        <input
-          type="email"
-          class="form-control"
-          id="floatingIdentity"
-          placeholder="Identity"
-        />
+        <input type="email"
+               class="form-control"
+               id="floatingIdentity"
+               placeholder="Identity"/>
         <label for="floatingIdentity">Identity</label>
       </div>
       <div class="form-floating">
@@ -115,10 +113,10 @@
       <button class="w-100 btn btn-lg btn-primary" onclick="signIn()">
         로그인
       </button>
-      <a
-              class="w-100 btn btn-lg btn-secondary"
-              style="margin-top: 1%; margin-bottom: 1%"
-              href="http://localhost:63342/backble.github.io/signUp.html">회원가입
+      <a class="w-100 btn btn-lg btn-secondary"
+         style="margin-top: 1%; margin-bottom: 1%"
+         href="http://localhost:63342/backble.github.io/corporateSignUp.html">
+        회원가입
       </a>
       <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </main>
@@ -128,7 +126,7 @@
     const floatingPassword = document.getElementById("floatingPassword");
     function signIn() {
       axios({
-        url: 'http://localhost:8000/bbl-member/member/login',
+        url: 'http://localhost:8000/bbl-member/corporate/login',
         method: 'post',
         data:{
           identity: floatingIdentity.value,
@@ -138,6 +136,8 @@
               function signIn(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
+                  localStorage.setItem("AccessToken", jsonData.data.accessToken)
+                  localStorage.setItem("RefreshToken", jsonData.data.refreshToken)
                   alert("로그인에 성공하셨습니다.");
                   location.href = "http://localhost:63342/backble.github.io/";
                 }else{

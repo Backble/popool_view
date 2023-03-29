@@ -93,15 +93,13 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <img class="mb-4" src="image/logo.png" alt="" width="72" height="72" />
+      <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
       <main>
         <div class="form-floating">
-          <input
-            type="email"
-            class="form-control"
-            id="inputIdentity"
-            placeholder="identity"
-          />
+          <input type="identity"
+                 class="form-control"
+                 id="inputIdentity"
+                 placeholder="identity"/>
           <label for="inputIdentity">아이디</label>
         </div>
 
@@ -200,7 +198,7 @@
                 const jsonData = response.data;
                 if(jsonData.result) {
                   alert("회원가입에 성공하셨습니다.");
-                  location.href = "http://localhost:63342/backble.github.io/signIn.html";
+                  location.href = "signIn.html";
                 }else{
                   alert(jsonData.message)
                 }
