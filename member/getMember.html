@@ -179,28 +179,31 @@
             .get('http://localhost:8000/bbl-member/member')
             .then(function (response) {
                 const data = response.data;
+                if(data.result) {
+                    // 가져온 데이터를 HTML 요소에 할당하기
+                    document.getElementById("identity").innerText = data.data.identity;
+                    document.getElementById("name").innerText = data.data.name;
 
-                // 가져온 데이터를 HTML 요소에 할당하기
-                document.getElementById("identity").innerText = data.identity;
-                document.getElementById("name").innerText = data.name;
+                    if (data.data.address) {
+                        document.getElementById("address").innerText =
+                            data.data.address.address1 +
+                            " " +
+                            data.data.address.address2 +
+                            " " +
+                            data.data.address.zipcode;
+                    }
 
-                if (data.address) {
-                    document.getElementById("address").innerText =
-                        data.address.address1 +
-                        " " +
-                        data.address.address2 +
-                        " " +
-                        data.address.zipcode;
+                    if (data.data.phoneNumber) {
+                        document.getElementById("phoneNumber").innerText = data.data.phoneNumber.toString();
+                    }
+
+                    document.getElementById("email").innerText = data.data.email;
+                    document.getElementById("gender").innerText = data.data.gender;
+                    document.getElementById("birth").innerText = data.data.birth;
+                    document.getElementById("create_at").innerText = data.data.create_at;
+                }else{
+                    alert(data.message)
                 }
-
-                if (data.phoneNumber) {
-                    document.getElementById("phoneNumber").innerText = data.phoneNumber.toString();
-                }
-
-                document.getElementById("email").innerText = data.email;
-                document.getElementById("gender").innerText = data.gender;
-                document.getElementById("birth").innerText = data.birth;
-                document.getElementById("create_at").innerText = data.create_at;
             })
             .catch(function (error) {
                 console.log(error);
