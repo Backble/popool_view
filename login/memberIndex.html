@@ -111,13 +111,8 @@
 </div>
 </body>
 <script>
-    const logoutLink1 = document.querySelector('#logoutLink1');
-    const logoutLink2 = document.querySelector('#logoutLink2');
-    logoutLink1.addEventListener('click', () => {
-        localStorage.removeItem('AccessToken');
-        localStorage.removeItem('RefreshToken');
-    });
-    logoutLink2.addEventListener('click', () => {
+    const logoutLink = document.querySelector('#logoutLink');
+    logoutLink.addEventListener('click', () => {
         localStorage.removeItem('AccessToken');
         localStorage.removeItem('RefreshToken');
     });
