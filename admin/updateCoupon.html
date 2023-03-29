@@ -28,7 +28,7 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Backble</title>
+    <title>Popool</title>
 
     <style>
         html,
@@ -59,6 +59,17 @@
             z-index: 2;
         }
 
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
         body {
             font-family: "Noto Sans KR", sans-serif;
         }
@@ -89,7 +100,7 @@
                    class="form-control"
                    id="inputPrice"
                    placeholder="price"/>
-            <label for="inputPrice">구독권 가격</label>
+            <label for="inputPrice">이용권 가격</label>
         </div>
 
         <div class="form-floating">
@@ -97,7 +108,7 @@
                    class="form-control"
                    id="inputAmount"
                    placeholder="amount"/>
-            <label for="inputAmount">구독권 결제일</label>
+            <label for="inputAmount">이용권 횟수</label>
         </div>
 
         <div class="form-floating">
@@ -105,11 +116,11 @@
                    class="form-control"
                    id="inputName"
                    placeholder="password"/>
-            <label for="inputName">구독권 명</label>
+            <label for="inputName">이용권 명</label>
         </div>
     </main>
-    <button class="w-100 btn btn-lg btn-primary" onclick="createPeriod()">
-        구독권 등록
+    <button class="w-100 btn btn-lg btn-primary" onclick="createCoupon()">
+        이용권 등록
     </button>
     <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
 </main>
@@ -119,21 +130,21 @@
     const inputName = document.getElementById("inputName");
     const inputAmount = document.getElementById("inputAmount");
 
-    function createPeriod() {
+    function createCoupon() {
         axios({
-            url: 'http://localhost:8000/bbl-payment/items/subscribe',
+            url: 'http://localhost:8000/bbl-payment/items/coupon',
             method: 'post',
             withCredentials: false,
             data:{
                 price: inputPrice.value,
                 name: inputName.value,
-                payDatePerMonth: inputAmount.value
+                amount: inputAmount.value
             }
         }).then(
             function signUp(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
-                    alert("기간 등록 성공");
+                    alert("쿠폰 등록 성공");
                     location.href = "../login/adminIndex.html";
                 }else{
                     alert(jsonData.message)

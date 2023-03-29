@@ -123,8 +123,8 @@
     const floatingPassword = document.getElementById("floatingPassword");
 
     function adminSignIn() {
-      if(floatingIdentity == "admin"){
-        if(floatingPassword == "admin"){
+      if(floatingIdentity.value === "admin"){
+        if(floatingPassword.value === "admin"){
           alert("관리자님 안녕하세요.");
           location.href = "adminIndex.html";
         }
