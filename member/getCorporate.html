@@ -102,20 +102,6 @@
                     나의평가
                 </a>
             </nav>
-
-            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                <a class="me-3 py-2 text-dark text-decoration-none"
-                   href="updateMember.html">
-                    회원정보 변경
-                </a>
-            </nav>
-
-            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                <a class="me-3 py-2 text-dark text-decoration-none"
-                   href="updateMemberPassword.html">
-                    비밀번호 변경
-                </a>
-            </nav>
         </div>
     </header>
 
@@ -126,6 +112,18 @@
                 <tr>
                     <th scope="row">아이디</th>
                     <td id="identity"></td>
+                </tr>
+                <tr>
+                    <th scope="row">대표명</th>
+                    <td id="ceoName"></td>
+                </tr>
+                <tr>
+                    <th scope="row">사업자번호</th>
+                    <td id="businessNumber"></td>
+                </tr>
+                <tr>
+                    <th scope="row">사업자명</th>
+                    <td id="businessName"></td>
                 </tr>
                 <tr>
                     <th scope="row">이름</th>
@@ -190,12 +188,16 @@
 
         // 서버에서 DTO 데이터 가져오기
         axios
-            .get('http://localhost:8000/bbl-member/member')
+            .get('http://localhost:8000/bbl-member/corporate')
             .then(function (response) {
                 const data = response.data;
                 if(data.result) {
                     // 가져온 데이터를 HTML 요소에 할당하기
                     document.getElementById("identity").innerText = data.data.identity;
+                    document.getElementById("ceoName").innerText = data.data.ceoName;
+                    document.getElementById("businessNumber").innerText = data.data.businessNumber;
+                    document.getElementById("businessName").innerText = data.data.businessName;
+
                     document.getElementById("name").innerText = data.data.name;
 
                     if (data.data.address) {
@@ -225,7 +227,7 @@
     }
 
     function goIndex() {
-        location.href = "../login/memberIndex.html";
+        location.href = "../login/corporateIndex.html";
     }
 </script>
 </html>
