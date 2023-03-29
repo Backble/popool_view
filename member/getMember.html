@@ -184,17 +184,12 @@
                 document.getElementById("identity").innerText = data.identity;
                 document.getElementById("name").innerText = data.name;
                 document.getElementById("address").innerText =
-                    data.address.city +
+                    data.address.address1 +
                     " " +
-                    data.address.street +
+                    data.address.address2 +
                     " " +
                     data.address.zipcode;
-                document.getElementById("phoneNumber").innerText =
-                    data.phoneNumber.areaCode +
-                    "-" +
-                    data.phoneNumber.exchange +
-                    "-" +
-                    data.phoneNumber.subscriberNumber;
+                document.getElementById("phoneNumber").innerText = data.phoneNumber.toString();
                 document.getElementById("email").innerText = data.email;
                 document.getElementById("gender").innerText = data.gender;
                 document.getElementById("birth").innerText = data.birth;
