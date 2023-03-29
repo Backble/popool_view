@@ -92,7 +92,6 @@
   <body class="text-center">
     <main class="form-signin">
       <img class="mb-4" src="image/logo.png" alt="" width="72" height="72" />
-<!--      <h1 class="h3 mb-3 fw-normal"></h1>-->
 
       <div class="form-floating">
         <input
@@ -140,7 +139,7 @@
                 const jsonData = response.data;
                 if(jsonData.result) {
                   alert("로그인에 성공하셨습니다.");
-                  location.href = "http://localhost:63342/backble.github.io/";
+                  location.href = "https://backble.github.io/";
                 }else{
                   alert(jsonData.message)
                 }
