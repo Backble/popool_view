@@ -184,6 +184,7 @@
       axios({
         url: 'http://localhost:8000/bbl-member/member/signUp',
         method: 'post',
+        withCredentials: false,
         data:{
           birth: inputDate.value,
           checkPassword: inputPassword.value,

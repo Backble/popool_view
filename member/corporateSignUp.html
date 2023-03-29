@@ -222,36 +222,34 @@
     const inputGender = document.getElementById("inputGender");
     function createAuth() {
       const genderRst = inputGender.options[inputGender.selectedIndex].value;
-      axios
-        .post(
-          "http://127.0.0.1:8000/bbl-member/corporate/signUp",
-          {
-            ceoName: inputCeoName.value,
-            businessNumber: inputBusinessNumber.value,
-            businessName: inputBusinessName.value,
-            birth: inputDate.value,
-            checkPassword: inputPassword.value,
-            gender: genderRst,
-            identity: inputIdentity.value,
-            name: inputName.value,
-            password: inputPassword2.value,
-            phoneNumber: inputPhoneNumber.value,
-            email: inputEmail.value
-          },
-          { withCredentials: true }
-        )
-        .then(function (response) {
-          const jsonData = response;
-          if (jsonData.result) {
-            alert("회원가입 성공");
-            location.href = "/";
-          } else if (!jsonData) {
-            alert(jsonData.description);
-          }
-        })
-        .catch(function (error) {
-          alert("오류발생" + error);
-        });
+      axios({
+        url: 'http://localhost:8000/bbl-member/member/signUp',
+        method: 'post',
+        withCredentials: false,
+        data:{
+          birth: inputDate.value,
+          checkPassword: inputPassword.value,
+          gender: genderRst,
+          identity: inputIdentity.value,
+          name: inputName.value,
+          password: inputPassword2.value,
+          phoneNumber: inputPhoneNumber.value
+        }
+      }).then(
+            function signUp(response) {
+              const jsonData = response.data;
+              if(jsonData.result) {
+                alert("회원가입에 성공하셨습니다.");
+                location.href = "signIn.html";
+              }else{
+                alert(jsonData.message)
+              }
+            }
+      ).catch(
+            function (error) {
+              alert("오류발생 : " + error);
+            }
+      );
     }
   </script>
 </html>
