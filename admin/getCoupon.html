@@ -30,9 +30,6 @@
 
 <body class="h-100">
 <div class="container py-3 h-100">
-    <header>
-        <!-- header 내용 생략 -->
-    </header>
 
     <main>
         <div>
@@ -47,7 +44,7 @@
                 </thead>
                 <tbody>
                 <tr v-for="(coupon) in coupons" :key="coupon.couponId">
-                    <th scope="row"></th>
+
                     <td>{{ coupon.couponId }}</td>
                     <td>{{ coupon.name }}</td>
                     <td>{{ coupon.price }}</td>
