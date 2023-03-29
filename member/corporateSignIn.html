@@ -111,12 +111,13 @@
       </div>
 
       <button class="w-100 btn btn-lg btn-primary" onclick="signIn()">
-        로그인
+        기업 로그인
       </button>
-      <a class="w-100 btn btn-lg btn-secondary"
+      <a id="logoutLink"
+         class="w-100 btn btn-lg btn-secondary"
          style="margin-top: 1%; margin-bottom: 1%"
          href="http://localhost:63342/backble.github.io/corporateSignUp.html">
-        회원가입
+        기업 회원가입
       </a>
       <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </main>
@@ -124,6 +125,12 @@
   <script>
     const floatingIdentity = document.getElementById("floatingIdentity");
     const floatingPassword = document.getElementById("floatingPassword");
+
+    const logoutLink = document.querySelector('#logoutLink');
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('jwtToken');
+    });
+
     function signIn() {
       axios({
         url: 'http://localhost:8000/bbl-member/corporate/login',
