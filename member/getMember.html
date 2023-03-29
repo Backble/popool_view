@@ -29,7 +29,7 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Popool</title>
+    <title>Backble</title>
 
     <style>
         body {
@@ -200,10 +200,11 @@
 
                     if (data.data.address) {
                         document.getElementById("address").innerText =
+                            "주소: " +
                             data.data.address.address1 +
-                            " " +
+                            "\n상세주소: " +
                             data.data.address.address2 +
-                            " " +
+                            "\n우편번호:  " +
                             data.data.address.zipcode;
                     }
 

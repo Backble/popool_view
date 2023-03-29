@@ -102,6 +102,20 @@
                     나의평가
                 </a>
             </nav>
+
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <a class="me-3 py-2 text-dark text-decoration-none"
+                   href="updateCorporate.html">
+                    회원정보 변경
+                </a>
+            </nav>
+
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <a class="me-3 py-2 text-dark text-decoration-none"
+                   href="updateCorporatePassword.html">
+                    비밀번호 변경
+                </a>
+            </nav>
         </div>
     </header>
 
@@ -202,10 +216,11 @@
 
                     if (data.data.address) {
                         document.getElementById("address").innerText =
+                            "주소: " +
                             data.data.address.address1 +
-                            " " +
+                            "\n상세주소: " +
                             data.data.address.address2 +
-                            " " +
+                            "\n우편번호:  " +
                             data.data.address.zipcode;
                     }
 
