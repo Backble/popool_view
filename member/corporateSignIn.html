@@ -128,7 +128,8 @@
 
     const logoutLink = document.querySelector('#logoutLink');
     logoutLink.addEventListener('click', () => {
-      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('AccessToken');
+      localStorage.removeItem('RefreshToken');
     });
 
     function signIn() {
