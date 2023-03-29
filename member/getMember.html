@@ -144,7 +144,6 @@
                 </tbody>
             </table>
 
-
             <br />
 
             <button type="button"
@@ -164,8 +163,48 @@
     </footer>
 </div>
 </body>
-
 <script>
+    // 페이지 로딩이 완료된 후에 실행될 함수
+    window.onload = function() {
+        // 토큰 가져오기
+        const token = localStorage.getItem('token');
+
+        // 토큰이 있는 경우 Axios 요청 헤더에 토큰 설정하기
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        }
+
+        // 서버에서 DTO 데이터 가져오기
+        axios
+            .get('http://localhost:8000/bbl-member/member')
+            .then(function (response) {
+                const data = response.data;
+
+                // 가져온 데이터를 HTML 요소에 할당하기
+                document.getElementById("identity").innerText = data.identity;
+                document.getElementById("name").innerText = data.name;
+                document.getElementById("address").innerText =
+                    data.address.city +
+                    " " +
+                    data.address.street +
+                    " " +
+                    data.address.zipcode;
+                document.getElementById("phoneNumber").innerText =
+                    data.phoneNumber.areaCode +
+                    "-" +
+                    data.phoneNumber.exchange +
+                    "-" +
+                    data.phoneNumber.subscriberNumber;
+                document.getElementById("email").innerText = data.email;
+                document.getElementById("gender").innerText = data.gender;
+                document.getElementById("birth").innerText = data.birth;
+                document.getElementById("create_at").innerText = data.create_at;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     function goIndex() {
         location.href = "../index.html";
     }
