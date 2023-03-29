@@ -73,12 +73,14 @@
                href="/viewRate.html">
               내정보
             </a>
-            <a class="me-3 py-2 text-dark text-decoration-none"
+            <a id="logoutLink1"
+               class="me-3 py-2 text-dark text-decoration-none"
                href="/member/signIn.html">
               일반 로그인
             </a>
-            <a class="me-3 py-2 text-dark text-decoration-none"
-               href="/member/corporateSignIn.html">
+            <a id="logoutLink2"
+               class="me-3 py-2 text-dark text-decoration-none"
+               href="/corporate/corporateSignIn.html">
               기업 로그인
             </a>
           </nav>
@@ -162,4 +164,17 @@
       </footer>
     </div>
   </body>
+  <script>
+    const logoutLink1 = document.querySelector('#logoutLink1');
+    const logoutLink2 = document.querySelector('#logoutLink2');
+    logoutLink1.addEventListener('click', () => {
+      localStorage.removeItem('AccessToken');
+      localStorage.removeItem('RefreshToken');
+    });
+    logoutLink2.addEventListener('click', () => {
+      localStorage.removeItem('AccessToken');
+      localStorage.removeItem('RefreshToken');
+    });
+
+  </script>
 </html>

@@ -94,7 +94,6 @@
   <body class="text-center">
     <main class="form-signin">
       <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
-<!--      <h1 class="h3 mb-3 fw-normal">Sign up</h1>-->
       <main>
         <div class="form-floating">
           <input type="text"
@@ -223,17 +222,21 @@
     function createAuth() {
       const genderRst = inputGender.options[inputGender.selectedIndex].value;
       axios({
-        url: 'http://localhost:8000/bbl-member/member/signUp',
+        url: 'http://localhost:8000/bbl-member/corporate/signUp',
         method: 'post',
         withCredentials: false,
         data:{
+          ceoName: inputCeoName.value,
+          businessNumber: inputBusinessNumber.value,
+          businessName: inputBusinessName.value,
           birth: inputDate.value,
           checkPassword: inputPassword.value,
           gender: genderRst,
           identity: inputIdentity.value,
           name: inputName.value,
           password: inputPassword2.value,
-          phoneNumber: inputPhoneNumber.value
+          phoneNumber: inputPhoneNumber.value,
+          email: inputEmail.value
         }
       }).then(
             function signUp(response) {

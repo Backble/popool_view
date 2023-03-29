@@ -136,7 +136,7 @@
       axios({
         url: 'http://localhost:8000/bbl-member/corporate/login',
         method: 'post',
-        withCredentials: false,
+        withCredentials: true,
         data:{
           identity: floatingIdentity.value,
           password: floatingPassword.value
