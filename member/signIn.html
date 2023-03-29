@@ -147,7 +147,7 @@
               function signIn(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
-                  localStorage.setItem("AccessToken", jsonData.data.accessToken)
+                  localStorage.setItem("Authorization", jsonData.data.accessToken)
                   localStorage.setItem("RefreshToken", jsonData.data.refreshToken)
                   alert("로그인에 성공하셨습니다.");
                   location.href = "../login/memberIndex.html";
