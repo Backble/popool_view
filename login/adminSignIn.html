@@ -94,10 +94,12 @@
       <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
 
       <div class="form-floating">
-        <input type="email"
-               class="form-control"
-               id="floatingIdentity"
-               placeholder="Identity"/>
+        <input
+          type="email"
+          class="form-control"
+          id="floatingIdentity"
+          placeholder="Identity"
+        />
         <label for="floatingIdentity">Identity</label>
       </div>
       <div class="form-floating">
@@ -110,15 +112,9 @@
         <label for="floatingPassword">Password</label>
       </div>
 
-      <button class="w-100 btn btn-lg btn-primary" onclick="signIn()">
-        기업 로그인
+      <button class="w-100 btn btn-lg btn-primary" onclick="adminSignIn()">
+        관리자 로그인
       </button>
-      <a id="logoutLink"
-         class="w-100 btn btn-lg btn-secondary"
-         style="margin-top: 1%; margin-bottom: 1%"
-         href="/member/corporateSignUp.html">
-        기업 회원가입
-      </a>
       <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </main>
   </body>
@@ -126,38 +122,16 @@
     const floatingIdentity = document.getElementById("floatingIdentity");
     const floatingPassword = document.getElementById("floatingPassword");
 
-    const logoutLink = document.querySelector('#logoutLink');
-    logoutLink.addEventListener('click', () => {
-      localStorage.removeItem('AccessToken');
-      localStorage.removeItem('RefreshToken');
-    });
-
-    function signIn() {
-      axios({
-        url: 'http://localhost:8000/bbl-member/corporate/login',
-        method: 'post',
-        withCredentials: true,
-        data:{
-          identity: floatingIdentity.value,
-          password: floatingPassword.value
+    function adminSignIn() {
+      if(floatingIdentity == "admin"){
+        if(floatingPassword == "admin"){
+          alert("관리자님 안녕하세요.");
+          location.href = "adminIndex.html";
         }
-      }).then(
-              function signIn(response) {
-                const jsonData = response.data;
-                if(jsonData.result) {
-                  localStorage.setItem("AccessToken", jsonData.data.accessToken)
-                  localStorage.setItem("RefreshToken", jsonData.data.refreshToken)
-                  alert("로그인에 성공하셨습니다.");
-                  location.href = "../login/corporateIndex.html";
-                }else{
-                  alert(jsonData.message)
-                }
-              }
-      ).catch(
-              function (error) {
-                alert("오류발생 : " + error);
-              }
-      );
+      }else{
+        alert("관리자만 로그인할 수 있습니다.");
+        location.href = "../index.html";
+      }
     }
   </script>
 </html>
