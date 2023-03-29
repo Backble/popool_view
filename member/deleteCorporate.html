@@ -100,27 +100,12 @@
                    class="form-control"
                    id="inputPassword"
                    placeholder="password"/>
-            <label for="inputPassword"> 기존 비밀번호</label>
+            <label for="inputPassword"> 비밀번호</label>
         </div>
 
-        <div class="form-floating">
-            <input type="password"
-                   class="form-control"
-                   id="inputNewPassword"
-                   placeholder="checkNewPassword"/>
-            <label for="inputNewPassword">새 비밀번호</label>
-        </div>
-
-        <div class="form-floating">
-            <input type="password"
-                   class="form-control"
-                   id="inputNewPassword2"
-                   placeholder="checkNewPassword"/>
-            <label for="inputNewPassword2">새 비밀번호 재입력</label>
-        </div>
     </main>
-    <button class="w-100 btn btn-lg btn-primary" onclick="updateCorporate()">
-        비밀번호 변경
+    <button class="w-100 btn btn-lg btn-primary" onclick="deleteCorporate()">
+        탈퇴
     </button>
     <br />
     <br />
@@ -133,10 +118,8 @@
 </body>
 <script>
     const inputPassword = document.getElementById("inputPassword");
-    const inputNewPassword = document.getElementById("inputNewPassword");
-    const inputNewPassword2 = document.getElementById("inputNewPassword2");
 
-    function updateCorporate() {
+    function deleteCorporate() {
         // 토큰 가져오기
         const token = localStorage.getItem('AccessToken');
 
@@ -146,20 +129,18 @@
         }
 
         axios({
-            url: 'http://localhost:8000/bbl-member/corporate/password',
-            method: 'put',
+            url: 'http://localhost:8000/bbl-member/corporate',
+            method: 'delete',
             withCredentials: true,
             data:{
                 originalPassword: inputPassword.value,
-                newPassword: inputNewPassword.value,
-                newCheckPassword: inputNewPassword2.value
             }
         }).then(
-            function updatePassword(response) {
+            function deleteResponse(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
-                    alert("비밀번호 변경 완료");
-                    location.href = "getCorporate.html";
+                    alert("탈퇴 완료");
+                    location.href = "../index.html";
                 }else{
                     alert(jsonData.message)
                 }
