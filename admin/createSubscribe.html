@@ -29,6 +29,14 @@
     <img class="mb-4" src="http://localhost:63342/backble.github.io/image/logo.png" alt="" width="72" height="72" />
     <main>
         <div class="form-floating">
+            <input type="text"
+                   class="form-control"
+                   id="inputName"
+                   placeholder="password"/>
+            <label for="inputName">구독권 명</label>
+        </div>
+
+        <div class="form-floating">
             <input type="number"
                    class="form-control"
                    id="inputPrice"
@@ -37,19 +45,11 @@
         </div>
 
         <div class="form-floating">
-            <input type="number"
+            <input type="date"
                    class="form-control"
                    id="inputAmount"
-                   placeholder="amount"/>
+                   placeholder="2022-06-29"/>
             <label for="inputAmount">구독권 결제일</label>
-        </div>
-
-        <div class="form-floating">
-            <input type="text"
-                   class="form-control"
-                   id="inputName"
-                   placeholder="password"/>
-            <label for="inputName">구독권 명</label>
         </div>
     </main>
     <button class="w-100 btn btn-lg btn-primary" onclick="createPeriod()">
@@ -65,8 +65,8 @@
 </main>
 </body>
 <script>
-    const inputPrice = document.getElementById("inputPrice");
     const inputName = document.getElementById("inputName");
+    const inputPrice = parseInt(document.getElementById("inputPrice").value);
     const inputAmount = document.getElementById("inputAmount");
 
     function createPeriod() {
@@ -75,15 +75,15 @@
             method: 'post',
             withCredentials: false,
             data:{
-                price: inputPrice.value,
                 name: inputName.value,
+                price: inputPrice,
                 payDatePerMonth: inputAmount.value
             }
         }).then(
             function signUp(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
-                    alert("기간 등록 성공");
+                    alert("구독 등록 성공");
                     location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
                 }else{
                     alert(jsonData.message)

@@ -39,6 +39,7 @@
                         <th scope="col">이용권 명</th>
                         <th scope="col">이용권 가격</th>
                         <th scope="col">이용권 횟수</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody id="coupon-data">
@@ -68,7 +69,7 @@
     // 페이지 로딩이 완료된 후에 실행될 함수
     window.onload = function() {
         // 서버에서 DTO 데이터 가져오기
-        axios.get('http://localhost:8000/bbl-payment/items/coupon/all')
+        axios.get('http://localhost:8000/bbl-payment/items/coupon/all-coupon')
             .then(response => {
                 const data = response.data;
                 if (data.result) {
@@ -76,17 +77,42 @@
                     data.data.forEach(coupon => {
                         const row = document.createElement('tr');
                         const idCell = document.createElement('td');
-                        idCell.innerText = coupon.couponId;
                         const nameCell = document.createElement('td');
-                        nameCell.innerText = coupon.name;
                         const priceCell = document.createElement('td');
-                        priceCell.innerText = coupon.price;
                         const amountCell = document.createElement('td');
-                        amountCell.innerText = coupon.amount;
+
+                        const buttonListCell = document.createElement('td');
+                        const buttonCell1 = document.createElement('button');
+                        const buttonCell2 = document.createElement('button');
+                        const buttonGap = document.createElement('span');
+
+                        idCell.innerText = coupon.couponId;
+                        nameCell.innerText = coupon.name;
+                        priceCell.innerText = coupon.price + "원";
+                        amountCell.innerText = coupon.amount + "회";
+
+                        buttonGap.innerHTML = '&nbsp;';
+                        buttonCell1.innerText = '이용권 수정'
+                        buttonCell1.classList.add('btn', 'btn-sm', 'btn-primary', 'mx-1')
+                        buttonCell1.addEventListener('click', () => {
+                            updateCoupon(coupon.couponId);
+                        })
+                        buttonCell2.innerText = '이용권 삭제'
+                        buttonCell2.classList.add('btn', 'btn-sm', 'btn-success', 'mx-1')
+                        buttonCell2.addEventListener('click', () => {
+                            deleteCoupon(coupon.couponId);
+                        })
+
                         row.appendChild(idCell);
                         row.appendChild(nameCell);
                         row.appendChild(priceCell);
                         row.appendChild(amountCell);
+
+                        buttonListCell.appendChild(buttonCell1);
+                        buttonListCell.appendChild(buttonGap);
+                        buttonListCell.appendChild(buttonCell2);
+                        row.appendChild(buttonListCell)
+
                         couponTable.appendChild(row);
                     });
                 } else {
@@ -96,6 +122,24 @@
             .catch(error => console.error(error));
     };
 
+    function updateCoupon(couponId) {
+        location.href = `http://localhost:63342/backble.github.io/admin/updateCoupon.html?couponId=${couponId}`;
+    }
+
+    function deleteCoupon(couponId) {
+        axios
+            .delete(`http://localhost:8000/bbl-payment/items/coupon/${couponId}`)
+            .then(response => {
+                const data = response.data;
+                if (data.result) {
+                    alert("해당 쿠폰은 삭제되었습니다.");
+                    location.href = "http://localhost:63342/backble.github.io/admin/getCoupon.html";
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error(error));
+    }
 
     function goIndex() {
         location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";

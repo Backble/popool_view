@@ -29,6 +29,14 @@
     <img class="mb-4" src="http://localhost:63342/backble.github.io/image/logo.png" alt="" width="72" height="72" />
     <main>
         <div class="form-floating">
+            <input type="text"
+                   class="form-control"
+                   id="inputName"
+                   placeholder="password"/>
+            <label for="inputName">기간권 명</label>
+        </div>
+
+        <div class="form-floating">
             <input type="number"
                    class="form-control"
                    id="inputPrice"
@@ -36,21 +44,16 @@
             <label for="inputPrice">기간권 가격</label>
         </div>
 
-        <div class="form-floating">
-            <input type="number"
-                   class="form-control"
-                   id="inputAmount"
-                   placeholder="amount"/>
-            <label for="inputAmount">기간권 기간</label>
-        </div>
+        <select id="inputAmount"
+                class="form-select"
+                style="margin-bottom: 10px">
+            <option value="" selected disabled hidden>기간</option>
+            <option value="1개월">1개월</option>
+            <option value="3개월">3개월</option>
+            <option value="6개월">6개월</option>
+            <option value="1년">12개월</option>
+        </select>
 
-        <div class="form-floating">
-            <input type="text"
-                   class="form-control"
-                   id="inputName"
-                   placeholder="password"/>
-            <label for="inputName">기간권 명</label>
-        </div>
     </main>
     <button class="w-100 btn btn-lg btn-primary" onclick="createPeriod()">
         기간권 등록
@@ -65,25 +68,27 @@
 </main>
 </body>
 <script>
-    const inputPrice = document.getElementById("inputPrice");
     const inputName = document.getElementById("inputName");
+    const inputPrice = parseInt(document.getElementById("inputPrice").value);
     const inputAmount = document.getElementById("inputAmount");
 
     function createPeriod() {
+        const periodRst = inputAmount.options[inputAmount.selectedIndex].value;
+
         axios({
             url: 'http://localhost:8000/bbl-payment/items/periodCoupon',
             method: 'post',
             withCredentials: false,
             data:{
-                price: inputPrice.value,
                 name: inputName.value,
-                period: inputAmount.value
+                price: inputPrice,
+                period: periodRst
             }
         }).then(
             function signUp(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
-                    alert("기간 등록 성공");
+                    alert("기간권 등록 성공");
                     location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
                 }else{
                     alert(jsonData.message)
