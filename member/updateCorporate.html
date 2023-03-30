@@ -70,7 +70,7 @@
 </head>
 <body class="text-center">
 <main class="form-signin">
-    <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
+    <img class="mb-4" src="http://localhost:63342/backble.github.io/image/logo.png" alt="" width="72" height="72" />
     <main>
         <div class="form-floating">
             <input type="text"
@@ -195,7 +195,7 @@
                 const jsonData = response.data;
                 if(jsonData.result) {
                     alert("회원정보 변경 완료");
-                    location.href = "getCorporate.html";
+                    location.href = "http://localhost:63342/backble.github.io/member/getCorporate.html";
                 }else{
                     alert(jsonData.message)
                 }
@@ -208,7 +208,7 @@
     }
 
     function goGetCorporate() {
-        location.href = "getCorporate.html";
+        location.href = "http://localhost:63342/backble.github.io/member/getCorporate.html";
     }
 </script>
 </html>

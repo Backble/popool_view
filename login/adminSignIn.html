@@ -66,7 +66,7 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
+      <img class="mb-4" src="http://localhost:63342/backble.github.io/image/logo.png" alt="" width="72" height="72" />
 
       <div class="form-floating">
         <input type="email"
@@ -86,6 +86,13 @@
       <button class="w-100 btn btn-lg btn-primary" onclick="adminSignIn()">
         관리자 로그인
       </button>
+
+      <button type="button"
+              class="w-100 btn btn-lg btn-secondary"
+              style="margin-top: 1%; margin-bottom: 1%"
+              onclick="goIndex()">
+        돌아가기
+      </button>
       <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </main>
   </body>
@@ -97,12 +104,16 @@
       if(floatingIdentity.value === "admin"){
         if(floatingPassword.value === "admin"){
           alert("관리자님 안녕하세요.");
-          location.href = "adminIndex.html";
+          location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
         }
       }else{
         alert("관리자만 로그인할 수 있습니다.");
-        location.href = "../index.html";
+        location.href = "http://localhost:63342/backble.github.io/index.html";
       }
+    }
+
+    function goIndex() {
+      location.href = "http://localhost:63342/backble.github.io/index.html";
     }
   </script>
 </html>

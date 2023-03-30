@@ -70,7 +70,7 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
+      <img class="mb-4" src="http://localhost:63342/backble.github.io/image/logo.png" alt="" width="72" height="72" />
       <main>
         <div class="form-floating">
           <input type="identity"
@@ -133,6 +133,13 @@
       <button class="w-100 btn btn-lg btn-primary" onclick="createAuth()">
         일반 회원가입
       </button>
+
+      <button type="button"
+              class="w-100 btn btn-lg btn-secondary"
+              style="margin-top: 1%; margin-bottom: 1%"
+              onclick="goIndex()">
+        돌아가기
+      </button>
       <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </main>
   </body>
@@ -164,7 +171,7 @@
                 const jsonData = response.data;
                 if(jsonData.result) {
                   alert("회원가입에 성공하셨습니다.");
-                  location.href = "signIn.html";
+                  location.href = "http://localhost:63342/backble.github.io/member/signIn.html";
                 }else{
                   alert(jsonData.message)
                 }
@@ -174,6 +181,10 @@
                 alert("오류발생 : " + error);
               }
       );
+    }
+
+    function goIndex() {
+      location.href = "http://localhost:63342/backble.github.io/index.html";
     }
   </script>
 </html>

@@ -25,7 +25,11 @@
 </head>
 <body class="text-center">
 <main class="form-signin">
-    <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
+    <img class="mb-4"
+         src="http://localhost:63342/backble.github.io/image/logo.png"
+         alt=""
+         width="72"
+         height="72" />
     <main>
         <div class="form-floating">
             <input type="number"
@@ -54,13 +58,19 @@
     <button class="w-100 btn btn-lg btn-primary" onclick="createCoupon()">
         이용권 등록
     </button>
+    <button type="button"
+            class="w-100 btn btn-lg btn-secondary"
+            style="margin-top: 1%; margin-bottom: 1%"
+            onclick="goIndex()">
+        돌아가기
+    </button>
     <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
 </main>
 </body>
 <script>
-    const inputPrice = document.getElementById("inputPrice");
+    const inputPrice = parseInt(document.getElementById("inputPrice").value);
     const inputName = document.getElementById("inputName");
-    const inputAmount = document.getElementById("inputAmount");
+    const inputAmount = parseInt(document.getElementById("inputAmount").value);
 
     function createCoupon() {
         axios({
@@ -68,16 +78,16 @@
             method: 'post',
             withCredentials: false,
             data:{
-                price: inputPrice.value,
+                price: inputPrice,
                 name: inputName.value,
-                amount: inputAmount.value
+                amount: inputAmount
             }
         }).then(
             function signUp(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
                     alert("이용권 등록 성공");
-                    location.href = "../login/adminIndex.html";
+                    location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
                 }else{
                     alert(jsonData.message)
                 }
@@ -87,6 +97,9 @@
                 alert("오류발생 : " + error);
             }
         );
+    }
+    function goIndex() {
+        location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
     }
 </script>
 </html>

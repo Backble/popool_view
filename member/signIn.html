@@ -66,7 +66,7 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
+      <img class="mb-4" src="http://localhost:63342/backble.github.io/image/logo.png" alt="" width="72" height="72" />
 
       <div class="form-floating">
         <input type="email"
@@ -87,11 +87,18 @@
         일반 로그인
       </button>
       <a id="logoutLink"
-         class="w-100 btn btn-lg btn-secondary"
+         class="w-100 btn btn-lg btn-success"
          style="margin-top: 1%; margin-bottom: 1%"
-         href="/member/signUp.html">
+         href="http://localhost:63342/backble.github.io/member/signUp.html">
         일반 회원가입
       </a>
+
+      <button type="button"
+              class="w-100 btn btn-lg btn-secondary"
+              style="margin-top: 1%; margin-bottom: 1%"
+              onclick="goIndex()">
+        돌아가기
+      </button>
       <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </main>
   </body>
@@ -121,7 +128,7 @@
                   localStorage.setItem("AccessToken", jsonData.data.accessToken)
                   localStorage.setItem("RefreshToken", jsonData.data.refreshToken)
                   alert("로그인에 성공하셨습니다.");
-                  location.href = "../login/memberIndex.html";
+                  location.href = "http://localhost:63342/backble.github.io/login/memberIndex.html";
                 }else{
                   alert(jsonData.message)
                 }
@@ -131,6 +138,10 @@
                 alert("오류발생 : " + error);
               }
       );
+    }
+
+    function goIndex() {
+      location.href = "http://localhost:63342/backble.github.io/index.html";
     }
   </script>
 </html>
