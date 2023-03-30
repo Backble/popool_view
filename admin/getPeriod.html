@@ -39,6 +39,7 @@
                     <th scope="col">기간권 명</th>
                     <th scope="col">기간권 가격</th>
                     <th scope="col">기간권 기간</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody id="coupon-data">
@@ -74,19 +75,45 @@
                 if (data.result) {
                     const couponTable = document.getElementById('coupon-data');
                     data.data.forEach(coupon => {
+
                         const row = document.createElement('tr');
                         const idCell = document.createElement('td');
-                        idCell.innerText = coupon.periodCouponId;
                         const nameCell = document.createElement('td');
-                        nameCell.innerText = coupon.name;
                         const priceCell = document.createElement('td');
-                        priceCell.innerText = coupon.price + "원";
                         const amountCell = document.createElement('td');
+
+                        const buttonListCell = document.createElement('td');
+                        const buttonCell1 = document.createElement('button');
+                        const buttonCell2 = document.createElement('button');
+                        const buttonGap = document.createElement('span');
+
+                        idCell.innerText = coupon.periodCouponId;
+                        nameCell.innerText = coupon.name;
+                        priceCell.innerText = coupon.price + "원";
                         amountCell.innerText = coupon.period;
+
+                        buttonGap.innerHTML = '&nbsp;';
+                        buttonCell1.innerText = '기간권 수정'
+                        buttonCell1.classList.add('btn', 'btn-sm', 'btn-primary', 'mx-1')
+                        buttonCell1.addEventListener('click', () => {
+                            updatePeriod(coupon.periodCouponId);
+                        })
+                        buttonCell2.innerText = '기간권 삭제'
+                        buttonCell2.classList.add('btn', 'btn-sm', 'btn-success', 'mx-1')
+                        buttonCell2.addEventListener('click', () => {
+                            deletePeriod(coupon.periodCouponId);
+                        })
+
                         row.appendChild(idCell);
                         row.appendChild(nameCell);
                         row.appendChild(priceCell);
                         row.appendChild(amountCell);
+
+                        buttonListCell.appendChild(buttonCell1);
+                        buttonListCell.appendChild(buttonGap);
+                        buttonListCell.appendChild(buttonCell2);
+                        row.appendChild(buttonListCell)
+
                         couponTable.appendChild(row);
                     });
                 } else {
@@ -96,6 +123,24 @@
             .catch(error => console.error(error));
     };
 
+    function updatePeriod(periodCouponId) {
+        location.href = `http://localhost:63342/backble.github.io/admin/updatePeriod.html?periodId=${periodCouponId}`;
+    }
+
+    function deletePeriod(periodCouponId) {
+        axios
+            .delete(`http://localhost:8000/bbl-payment/items/periodCoupon/${periodCouponId}`)
+            .then(response => {
+                const data = response.data;
+                if (data.result) {
+                    alert("해당 쿠폰은 삭제되었습니다.");
+                    location.href = "http://localhost:63342/backble.github.io/admin/getPeriod.html";
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error(error));
+    }
 
     function goIndex() {
         location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";

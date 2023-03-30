@@ -68,13 +68,12 @@
 </main>
 </body>
 <script>
-    const inputName = document.getElementById("inputName");
-    const inputPrice = parseInt(document.getElementById("inputPrice").value);
-    const inputAmount = document.getElementById("inputAmount");
 
     function createPeriod() {
+        const inputName = document.getElementById("inputName");
+        const inputPrice = parseInt(document.getElementById("inputPrice").value);
+        const inputAmount = document.getElementById("inputAmount");
         const periodRst = inputAmount.options[inputAmount.selectedIndex].value;
-
         axios({
             url: 'http://localhost:8000/bbl-payment/items/periodCoupon',
             method: 'post',
@@ -85,7 +84,7 @@
                 period: periodRst
             }
         }).then(
-            function signUp(response) {
+            function create(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
                     alert("기간권 등록 성공");

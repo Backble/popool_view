@@ -68,11 +68,12 @@
 </main>
 </body>
 <script>
-    const inputName = document.getElementById("inputName");
-    const inputPrice = parseInt(document.getElementById("inputPrice").value);
-    const inputAmount = parseInt(document.getElementById("inputAmount").value);
 
     function createCoupon() {
+        const inputName = document.getElementById("inputName");
+        const inputPrice = parseInt(document.getElementById("inputPrice").value);
+        const inputAmount = parseInt(document.getElementById("inputAmount").value);
+
         axios({
             url: 'http://localhost:8000/bbl-payment/items/coupon',
             method: 'post',
@@ -83,7 +84,7 @@
                 amount: inputAmount
             }
         }).then(
-            function signUp(response) {
+            function create(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
                     alert("이용권 등록 성공");

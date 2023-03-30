@@ -52,7 +52,7 @@
             <label for="inputAmount">구독권 결제일</label>
         </div>
     </main>
-    <button class="w-100 btn btn-lg btn-primary" onclick="createPeriod()">
+    <button class="w-100 btn btn-lg btn-primary" onclick="createSubscribe()">
         구독권 등록
     </button>
     <button type="button"
@@ -65,11 +65,12 @@
 </main>
 </body>
 <script>
-    const inputName = document.getElementById("inputName");
-    const inputPrice = parseInt(document.getElementById("inputPrice").value);
-    const inputAmount = document.getElementById("inputAmount");
 
-    function createPeriod() {
+    function createSubscribe() {
+        const inputName = document.getElementById("inputName");
+        const inputPrice = parseInt(document.getElementById("inputPrice").value);
+        const inputAmount = document.getElementById("inputAmount");
+
         axios({
             url: 'http://localhost:8000/bbl-payment/items/subscribe',
             method: 'post',
@@ -80,10 +81,10 @@
                 payDatePerMonth: inputAmount.value
             }
         }).then(
-            function signUp(response) {
+            function create(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
-                    alert("구독 등록 성공");
+                    alert("구독권 등록 성공");
                     location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
                 }else{
                     alert(jsonData.message)

@@ -104,9 +104,6 @@
     </main>
   </body>
   <script>
-    const floatingIdentity = document.getElementById("floatingIdentity");
-    const floatingPassword = document.getElementById("floatingPassword");
-
     const logoutLink = document.querySelector('#logoutLink');
     logoutLink.addEventListener('click', () => {
       localStorage.removeItem('AccessToken');
@@ -114,6 +111,9 @@
     });
 
     function signIn() {
+      const floatingIdentity = document.getElementById("floatingIdentity");
+      const floatingPassword = document.getElementById("floatingPassword");
+
       axios({
         url: 'http://localhost:8000/bbl-member/corporate/login',
         method: 'post',

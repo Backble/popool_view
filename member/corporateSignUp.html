@@ -178,19 +178,20 @@
     </main>
   </body>
   <script>
-    const inputCeoName = document.getElementById("inputCeoName");
-    const inputBusinessNumber = document.getElementById("inputBusinessNumber");
-    const inputBusinessName = document.getElementById("inputBusinessName");
-    const inputIdentity = document.getElementById("inputIdentity");
-    const inputPassword = document.getElementById("inputPassword");
-    const inputPassword2 = document.getElementById("inputPassword2");
-    const inputName = document.getElementById("inputName");
-    const inputPhoneNumber = document.getElementById("inputPhoneNumber");
-    const inputDate = document.getElementById("inputDate");
-    const inputEmail = document.getElementById("inputEmail");
-    const inputGender = document.getElementById("inputGender");
     function createAuth() {
+      const inputCeoName = document.getElementById("inputCeoName");
+      const inputBusinessNumber = document.getElementById("inputBusinessNumber");
+      const inputBusinessName = document.getElementById("inputBusinessName");
+      const inputIdentity = document.getElementById("inputIdentity");
+      const inputPassword = document.getElementById("inputPassword");
+      const inputPassword2 = document.getElementById("inputPassword2");
+      const inputName = document.getElementById("inputName");
+      const inputPhoneNumber = document.getElementById("inputPhoneNumber");
+      const inputDate = document.getElementById("inputDate");
+      const inputEmail = document.getElementById("inputEmail");
+      const inputGender = document.getElementById("inputGender");
       const genderRst = inputGender.options[inputGender.selectedIndex].value;
+
       axios({
         url: 'http://localhost:8000/bbl-member/corporate/signUp',
         method: 'post',
