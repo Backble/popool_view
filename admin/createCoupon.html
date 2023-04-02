@@ -35,7 +35,7 @@
             <input type="text"
                    class="form-control"
                    id="inputName"
-                   placeholder="password"/>
+                   placeholder="inputName"/>
             <label for="inputName">이용권 명</label>
         </div>
 
@@ -43,7 +43,7 @@
             <input type="number"
                    class="form-control"
                    id="inputPrice"
-                   placeholder="price"/>
+                   placeholder="inputPrice"/>
             <label for="inputPrice">이용권 가격</label>
         </div>
 
@@ -68,29 +68,42 @@
 </main>
 </body>
 <script>
-
     function createCoupon() {
-        const inputName = document.getElementById("inputName");
-        const inputPrice = parseInt(document.getElementById("inputPrice").value);
-        const inputAmount = parseInt(document.getElementById("inputAmount").value);
+        const inputName = document.getElementById("inputName").value;
+        const inputPrice = document.getElementById("inputPrice").value;
+        const inputAmount = document.getElementById("inputAmount").value;
+
+        if (!inputName || !inputPrice || !inputAmount) {
+            alert("모든 값을 입력해주세요.");
+            return;
+        }
+
+        const parsedPrice = parseInt(inputPrice);
+        const parsedAmount = parseInt(inputAmount);
+
+        if (isNaN(parsedPrice) || isNaN(parsedAmount)) {
+            alert("유효한 값을 입력해주세요.");
+            return;
+        }
 
         axios({
+
             url: 'http://localhost:8000/bbl-payment/items/coupon',
             method: 'post',
             withCredentials: false,
             data:{
-                name: inputName.value,
-                price: inputPrice,
-                amount: inputAmount
+                name: inputName,
+                price: parsedPrice,
+                amount: parsedAmount
             }
         }).then(
             function create(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
                     alert("이용권 등록 성공");
-                    location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
+                    location.href = "../index/adminIndex.html";
                 }else{
-                    alert(jsonData.message)
+                    alert(":" + jsonData.message)
                 }
             }
         ).catch(
@@ -100,7 +113,7 @@
         );
     }
     function goIndex() {
-        location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
+        location.href = "../index/adminIndex.html";
     }
 </script>
 </html>

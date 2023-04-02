@@ -60,6 +60,7 @@
         body {
             font-family: "Noto Sans KR", sans-serif;
         }
+
         .form-floating {
             margin-top: 3%;
             margin-bottom: 3%;
@@ -72,60 +73,20 @@
     <img class="mb-4" src="../image/logo.png" alt="" width="72" height="72" />
     <main>
         <div class="form-floating">
-            <input type="text"
+            <input type="password"
                    class="form-control"
-                   id="inputName"
-                   placeholder="홍길동"/>
-            <label for="inputName">이름</label>
-        </div>
-
-        <div class="form-floating">
-            <input type="email"
-                   class="form-control"
-                   id="inputEmail"
-                   placeholder="email@example.com"/>
-            <label for="inputEmail">이메일</label>
-        </div>
-
-        <div class="form-floating">
-            <input type="tel"
-                   class="form-control"
-                   id="inputPhoneNumber"
-                   placeholder="010-1234-1234"/>
-            <label for="inputPhoneNumber">전화번호</label>
-        </div>
-
-        <div class="form-floating">
-            <input type="text"
-                   class="form-control"
-                   id="inputZipCode"
-                   placeholder="12345"/>
-            <label for="inputZipCode">우편번호</label>
-        </div>
-
-        <div class="form-floating">
-            <input type="text"
-                   class="form-control"
-                   id="inputAddress1"
-                   placeholder="주소"/>
-            <label for="inputAddress1">주소</label>
-        </div>
-
-        <div class="form-floating">
-            <input type="text"
-                   class="form-control"
-                   id="inputAddress2"
-                   placeholder="상세주소"/>
-            <label for="inputAddress2">상세주소</label>
+                   id="inputPassword"
+                   placeholder="password"/>
+            <label for="inputPassword"> 비밀번호</label>
         </div>
 
     </main>
-    <button class="w-100 btn btn-lg btn-primary" onclick="updateMember()">
-        회원정보 변경
+    <button class="w-100 btn btn-lg btn-primary" onclick="deleteCorporate()">
+        탈퇴
     </button>
     <br />
     <br />
-    <button class="w-100 btn btn-lg btn-secondary" onclick="goGetMember()">
+    <button class="w-100 btn btn-lg btn-secondary" onclick="goGetCorporate()">
         돌아가기
     </button>
 
@@ -133,13 +94,8 @@
 </main>
 </body>
 <script>
-    function updateMember() {
-        const inputName = document.getElementById("inputName");
-        const inputPhoneNumber = document.getElementById("inputPhoneNumber");
-        const inputEmail = document.getElementById("inputEmail");
-        const inputZipCode = document.getElementById("inputZipCode");
-        const inputAddress1 = document.getElementById("inputAddress1");
-        const inputAddress2 = document.getElementById("inputAddress2");
+    function deleteCorporate() {
+        const inputPassword = document.getElementById("inputPassword");
 
         // 토큰 가져오기
         const token = localStorage.getItem('AccessToken');
@@ -150,23 +106,18 @@
         }
 
         axios({
-            url: 'http://localhost:8000/bbl-member/member',
-            method: 'put',
+            url: 'http://localhost:8000/bbl-member/corporate',
+            method: 'delete',
             withCredentials: true,
             data:{
-                name: inputName.value,
-                phoneNumber: inputPhoneNumber.value,
-                email: inputEmail.value,
-                zipCode: inputZipCode.value,
-                address1: inputAddress1.value,
-                address2: inputAddress2.value
+                password: inputPassword.value,
             }
         }).then(
-            function update(response) {
+            function deleteResponse(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
-                    alert("회원정보 변경 완료");
-                    location.href = "../member/getMember.html";
+                    alert("탈퇴 완료");
+                    location.href = "../index/index.html";
                 }else{
                     alert(jsonData.message)
                 }
@@ -178,8 +129,9 @@
         );
     }
 
-    function goGetMember() {
-        location.href = "../member/getMember.html";
+    function goGetCorporate() {
+        location.href = "../corporate/getCorporate.html";
     }
+
 </script>
 </html>

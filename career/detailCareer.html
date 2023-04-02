@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.svg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+          rel="stylesheet"/>
+    <meta http-equiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Backble</title>
+
+    <link rel = "stylesheet" href="../css/base.css">
+</head>
+
+<body class="h-100">
+<div class="container py-3 h-100">
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <a class="d-flex align-items-center text-dark text-decoration-none">
+                <span class="fs-4">Backble</span>
+            </a>
+
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <a class="me-3 py-2 text-dark text-decoration-none"
+                   href="../career/updateCareer.html">
+                    이력서 수정
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div>
+            <table id="career-table"
+                   class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">이메일</th>
+                    <th scope="col">전화번호</th>
+
+                    <th scope="col">경력</th>
+                    <th scope="col" style="height: 150px;">자기소개</th>
+                    <th scope="col">웹사이트</th>
+                </tr>
+                </thead>
+                <tbody class="table-secondary" id="career-data">
+                </tbody>
+            </table>
+
+            <br />
+
+            <button type="button"
+                    class="btn btn-lg btn-secondary"
+                    style="width: 100%; margin: 1%"
+                    onclick="goIndex()">
+                돌아가기
+            </button>
+        </div>
+    </main>
+    <br />
+    <hr />
+    <footer>
+        <p style="text-align: center">
+            &copy; 2023
+        </p>
+    </footer>
+</div>
+</body>
+<script>
+    // 페이지 로딩이 완료된 후에 실행될 함수
+    window.onload = function() {
+        // 토큰 가져오기
+        const token = localStorage.getItem('AccessToken');
+
+        // 토큰이 있는 경우 Axios 요청 헤더에 토큰 설정하기
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        }
+
+        // URL 파라미터에서 careerId 가져오기
+        const params = new URLSearchParams(window.location.search);
+        const careerId = params.get('careerId');
+
+        // 서버에서 DTO 데이터 가져오기
+        axios.get(`http://localhost:8000/bbl-member/career/${careerId}`)
+            .then(response => {
+                const data = response.data;
+                if (data.result) {
+                    const careerTable = document.getElementById('career-data');
+                    const row = document.createElement('tr');
+
+                    const phoneNumberCell = document.createElement('td');
+                    phoneNumberCell.innerText = data.data.phoneNumber;
+
+                    const emailCell = document.createElement('td');
+                    emailCell.innerText = data.data.email;
+
+                    const nameCell = document.createElement('td');
+                    nameCell.innerText = data.data.name;
+
+                    const periodCell = document.createElement('td');
+                    if(data.data.period == 0){
+                        periodCell.innerText = "신입";
+                    }else if(data.data.period == 3){
+                        periodCell.innerText = "1~4년차";
+                    }else{
+                        periodCell.innerText = "5년차 이상";
+                    }
+
+                    const contextCell = document.createElement('td');
+                    contextCell.innerText = data.data.context;
+
+                    const filePathCell = document.createElement('td');
+                    filePathCell.innerText = data.data.filePath;
+
+                    const buttonListCell = document.createElement('td');
+                    const buttonCell1 = document.createElement('button');
+                    buttonCell1.innerText = '이력서 수정'
+                    buttonCell1.classList.add('btn', 'btn-sm', 'btn-primary', 'mx-1')
+                    buttonCell1.addEventListener('click', () => {
+                        updateCareer();
+                    })
+                    buttonListCell.appendChild(buttonCell1);
+
+                    row.appendChild(nameCell);
+                    row.appendChild(emailCell);
+                    row.appendChild(phoneNumberCell);
+                    row.appendChild(periodCell);
+                    row.appendChild(contextCell);
+                    row.appendChild(filePathCell);
+                    row.appendChild(buttonListCell);
+
+                    careerTable.appendChild(row);
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error(error));
+    };
+
+    function updateCareer() {
+        location.href = `../career/updateCareer.html`;
+    }
+
+    function goIndex() {
+        location.href = "../career/getCareer.html";
+    }
+</script>
+</html>

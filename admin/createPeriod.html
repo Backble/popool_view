@@ -88,7 +88,7 @@
                 const jsonData = response.data;
                 if(jsonData.result) {
                     alert("기간권 등록 성공");
-                    location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
+                    location.href = "../index/adminIndex.html";
                 }else{
                     alert(jsonData.message)
                 }
@@ -100,7 +100,7 @@
         );
     }
     function goIndex() {
-        location.href = "http://localhost:63342/backble.github.io/login/adminIndex.html";
+        location.href = "../index/adminIndex.html";
     }
 </script>
 </html>

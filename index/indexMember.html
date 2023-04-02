@@ -43,12 +43,16 @@
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none"
-                   href="http://localhost:63342/backble.github.io/member/getMember.html">
+                   href="../career/getCareer.html">
+                    내 이력서
+                </a>
+                <a class="me-3 py-2 text-dark text-decoration-none"
+                   href="../member/getMember.html">
                     내정보
                 </a>
                 <a id="logoutLink"
                    class="me-3 py-2 text-dark text-decoration-none"
-                   href="http://localhost:63342/backble.github.io/index.html">
+                   href="../index/index.html">
                     로그아웃
                 </a>
             </nav>
@@ -57,30 +61,33 @@
 
     <main>
         <div class="p-5 mb-4 bg-light rounded-3">
-            <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=Backble&fontSize=77&animation=fadeIn&fontAlignY=38&desc=MSA 기반 인사이력 블록체인 검증 시스템!&descAlignY=51&descAlign=62" alt="Backble" />
+            <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=Backble&fontSize=77&animation=fadeIn&fontAlignY=38&desc=MSA 기반 인사이력 검증 시스템!&descAlignY=51&descAlign=62" alt="Backble" />
+            <ul class="icon-list"
+                style="list-style: none;
+                    display: flex;">
+                <li class="col-md-5 mx-auto text-center">
+                    <a class="btn btn-success btn-lg col-md-12 mx-auto text-center"
+                       href=""
+                       style="font-size: 1rem; padding: 5px;"
+                       rel="noopener">
+                        나의 평가 보러가기
+                    </a>
+                <li class="col-md-5 mx-auto text-center">
+                    <a class="btn btn-primary btn-lg col-md-12 mx-auto text-center"
+                       href=""
+                       style="font-size: 1rem; padding: 5px;"
+                       rel="noopener">
+                        동료 평가하기
+                    </a>
+                </li>
+            </ul>
         </div>
         <div class="row g-5">
             <div class="col-md-12 mx-auto text-center">
-                <h2>평가</h2>
-                <p>
-                    여러분의 동료를 직접 평가하여 더 큰 무대위로 나아갈 수 있도록
-                    도와주세요! 언제나 Backble이 응원하고 함께하겠습니다
+                <p style="background-color: #F2F2F2; padding: 20px; border-radius: 5px;">
+                    <span style="font-size: 1.2rem; font-weight: bold; color: #6B8E23;">동료를 평가하여 더 큰 성장을 이루세요!</span> <br />
+                    <span style="font-size: 1rem;">Backble은 항상 여러분의 성장을 응원합니다. 동료들과 함께 더 큰 성과를 이루기 위해 평가에 참여해보세요.</span>
                 </p>
-                <ul class="icon-list"
-                    style="list-style: none;
-                    display: flex;">
-                    <li class="col-md-3 mx-auto text-center">
-                        <a class="btn btn-success d-flex justify-content-center"
-                           href="">
-                            나의 평가 보러가기
-                        </a>
-                    <li class="col-md-3 mx-auto text-center">
-                        <a class="btn btn-primary d-flex justify-content-center"
-                           href="">
-                            동료 평가하기
-                        </a>
-                    </li>
-                </ul>
             </div>
         </div>
     </main>
@@ -100,6 +107,5 @@
         localStorage.removeItem('AccessToken');
         localStorage.removeItem('RefreshToken');
     });
-
 </script>
 </html>
