@@ -36,8 +36,8 @@
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none"
-                   href="../career/updateCareer.html">
-                    이력서 수정
+                   href="">
+                    구직자 인사 정보
                 </a>
             </nav>
         </div>
@@ -49,16 +49,14 @@
                    class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">이름</th>
-                    <th scope="col">이메일</th>
-                    <th scope="col">전화번호</th>
-
-                    <th scope="col">경력</th>
-                    <th scope="col" style="height: 150px;">자기소개</th>
-                    <th scope="col">웹사이트</th>
+                    <th class="table-header" scope="col">이름</th>
+                    <th class="table-header" scope="col">성별</th>
+                    <th class="table-header" scope="col">생년월일</th>
+                    <th class="table-header" scope="col">이력서</th>
+                    <th class="table-header" scope="col">평가 내역</th>
                 </tr>
                 </thead>
-                <tbody class="table-secondary" id="career-data">
+                <tbody class="table-secondary" id="member-all-data">
                 </tbody>
             </table>
 
@@ -91,61 +89,53 @@
         if (token) {
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         }
-
-        // URL 파라미터에서 careerId 가져오기
-        const params = new URLSearchParams(window.location.search);
-        const careerId = params.get('careerId');
-
         // 서버에서 DTO 데이터 가져오기
-        axios.get(`http://localhost:8000/bbl-member/career/${careerId}`)
+        axios.get('http://localhost:8000/bbl-member/career/all-career')
             .then(response => {
                 const data = response.data;
                 if (data.result) {
-                    const careerTable = document.getElementById('career-data');
-                    const row = document.createElement('tr');
+                    const memberAllTable = document.getElementById('member-all-data');
 
-                    const phoneNumberCell = document.createElement('td');
-                    phoneNumberCell.innerText = data.data.phoneNumber;
+                    data.data.forEach(member => {
+                        const row = document.createElement('tr');
+                        const nameCell = document.createElement('td');
+                        const genderCell = document.createElement('td');
+                        const birthCell = document.createElement('td');
 
-                    const emailCell = document.createElement('td');
-                    emailCell.innerText = data.data.email;
+                        const buttonCell1 = document.createElement('td');
+                        const buttonCell2 = document.createElement('td');
+                        const careerButtonCell = document.createElement('button');
+                        const gradeButtonCell = document.createElement('button');
 
-                    const nameCell = document.createElement('td');
-                    nameCell.innerText = data.data.name;
+                        nameCell.innerText = member.name;
+                        genderCell.innerText = member.gender;
+                        birthCell.innerText = member.birth;
 
-                    const periodCell = document.createElement('td');
-                    if(data.data.period == 0){
-                        periodCell.innerText = "신입";
-                    }else if(data.data.period == 3){
-                        periodCell.innerText = "1~4년차";
-                    }else{
-                        periodCell.innerText = "5년차 이상";
-                    }
+                        careerButtonCell.innerText = '상세보기'
+                        gradeButtonCell.innerText = '상세보기'
 
-                    const contextCell = document.createElement('td');
-                    contextCell.innerText = data.data.context;
+                        careerButtonCell.classList.add('btn', 'btn-sm', 'btn-primary')
+                        gradeButtonCell.classList.add('btn', 'btn-sm', 'btn-success')
 
-                    const filePathCell = document.createElement('td');
-                    filePathCell.innerText = data.data.filePath;
+                        careerButtonCell.addEventListener('click', () => {
+                            getCareer(member.identity);
+                        })
+                        gradeButtonCell.addEventListener('click', () => {
+                            getGrade(member.identity);
+                        })
 
-                    const buttonListCell = document.createElement('td');
-                    const buttonCell1 = document.createElement('button');
-                    buttonCell1.innerText = '이력서 수정'
-                    buttonCell1.classList.add('btn', 'btn-sm', 'btn-primary', 'mx-1')
-                    buttonCell1.addEventListener('click', () => {
-                        updateCareer();
-                    })
-                    buttonListCell.appendChild(buttonCell1);
+                        buttonCell1.appendChild(careerButtonCell);
+                        buttonCell2.appendChild(gradeButtonCell);
 
-                    row.appendChild(nameCell);
-                    row.appendChild(emailCell);
-                    row.appendChild(phoneNumberCell);
-                    row.appendChild(periodCell);
-                    row.appendChild(contextCell);
-                    row.appendChild(filePathCell);
-                    row.appendChild(buttonListCell);
+                        row.appendChild(nameCell);
+                        row.appendChild(genderCell);
+                        row.appendChild(birthCell);
 
-                    careerTable.appendChild(row);
+                        row.appendChild(buttonCell1);
+                        row.appendChild(buttonCell2);
+
+                        memberAllTable.appendChild(row);
+                    });
                 } else {
                     alert(data.message);
                 }
@@ -153,12 +143,16 @@
             .catch(error => console.error(error));
     };
 
-    function updateCareer() {
-        location.href = `../career/updateCareer.html`;
+    function getCareer(identity) {
+        location.href = `../career/getCareerIdentity.html?identity=${identity}`;
+    }
+
+    function getGrade(identity) {
+        location.href = `../career/getGradeIdentity.html?identity=${identity}`;
     }
 
     function goIndex() {
-        location.href = "../career/getCareer.html";
+        location.href = "../index/indexCorporate.html";
     }
 </script>
 </html>

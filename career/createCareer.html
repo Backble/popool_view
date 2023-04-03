@@ -94,7 +94,7 @@
                 period: PeriodRst
             }
         }).then(
-            function signUp(response) {
+            function create(response) {
                 const jsonData = response.data;
                 if(jsonData.result) {
                     alert("이력서 등록 완료");
@@ -111,7 +111,7 @@
     }
 
     function goIndex() {
-        location.href = "../career/getCareer.html";
+        location.href = "../index/indexMember.html";
     }
 </script>
 </html>

@@ -35,14 +35,7 @@
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                    <a class="me-3 py-2 text-dark text-decoration-none"
-                       href="../career/updateCareer.html">
-                        이력서 수정
-                    </a>
-                    <a class="me-3 py-2 text-dark text-decoration-none"
-                       href="../career/deleteCareer.html">
-                        이력서 삭제
-                    </a>
+                    이력서 상세 정보
                 </nav>
             </nav>
         </div>
@@ -130,6 +123,9 @@
 <script>
     // 페이지 로딩이 완료된 후에 실행될 함수
     window.onload = function() {
+        const params = new URLSearchParams(window.location.search);
+        const inputIdentity = params.get('identity');
+
         // 토큰 가져오기
         const token = localStorage.getItem('AccessToken');
 
@@ -140,7 +136,7 @@
 
         // 서버에서 DTO 데이터 가져오기
         axios
-            .get('http://localhost:8000/bbl-member/career')
+            .get(`http://localhost:8000/bbl-member/career/${inputIdentity}`)
             .then(function (response) {
                 const data = response.data;
                 if(data.result) {
@@ -178,7 +174,7 @@
     }
 
     function goIndex() {
-        location.href = "../index/indexMember.html";
+        location.href = "../index/indexCorporate.html";
     }
 </script>
 </html>
