@@ -89,6 +89,9 @@
 <script>
     // 서버에서 응답 받은 데이터를 가져오는 함수
     window.onload = function getGrade(){
+        const params = new URLSearchParams(window.location.search);
+        const identity = params.get('identity');
+
         // 토큰 가져오기
         const token = localStorage.getItem('AccessToken');
 
@@ -184,6 +187,7 @@
             countCell.textContent = grade.memberCount;
             totalScoreCell.textContent = grade.totalAvg;
 
+
             const n = parseFloat(totalScoreCell.textContent);
             if(n >= 1.0 && n < 2.5) rankCell.textContent = "BRONZE";
             else if(n >= 2.5 && n < 4.0) rankCell.textContent = "SILVER";
@@ -201,7 +205,7 @@
 
         // axios 라이브러리를 사용하여 서버에서 응답 받음
         axios
-            .get('http://localhost:8000/bbl-member/grade')
+            .get(`http://localhost:8000/bbl-member/grade/detail/${identity}`)
             .then(function (response) {
                 const data = response.data;
                 if(data.result) {
@@ -215,7 +219,7 @@
 
 
     function goIndex() {
-        location.href = "../index/indexMember.html";
+        location.href = "../member/getMemberByAll.html";
     }
 </script>
 </html>

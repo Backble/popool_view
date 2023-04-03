@@ -143,6 +143,10 @@
         const cooperativeRst = inputCooperative.options[inputCooperative.selectedIndex].value;
         const technicRst = inputTechnic.options[inputTechnic.selectedIndex].value;
 
+        if (attendRst === "" || sinceRst === "" || positiveRst === "" || cooperativeRst === "" || technicRst === "") {
+            alert("평가 항목을 모두 선택해주세요.");
+            return;
+        }
 
         axios({
             url: 'http://localhost:8000/bbl-member/score',

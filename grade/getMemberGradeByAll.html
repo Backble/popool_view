@@ -53,7 +53,7 @@
                     <th class="table-header" scope="col">이름</th>
                     <th class="table-header" scope="col">성별</th>
                     <th class="table-header" scope="col">생년월일</th>
-                    <th class="table-header" scope="col" colspan="2">평가</th>
+                    <th class="table-header" scope="col">평가</th>
                 </tr>
                 </thead>
                 <tbody class="table-secondary" id="member-all-data">
@@ -91,7 +91,7 @@
         }
 
         // 서버에서 DTO 데이터 가져오기
-        axios.get('http://localhost:8000/bbl-member/career/all-career')
+        axios.get('http://localhost:8000/bbl-member/career/all-career/other')
             .then(response => {
                 const data = response.data;
                 if (data.result) {
@@ -105,39 +105,23 @@
                         const birthCell = document.createElement('td');
 
                         const buttonCell1 = document.createElement('td');
-                        const buttonCell2 = document.createElement('td');
                         const careerButtonCell = document.createElement('button');
-                        const gradeButtonCell = document.createElement('button');
 
-                        if(member.identity.length === 1){
-                            identityCell.innerText = "***";
-                        }else if(member.identity.length === 2){
-                            identityCell.innerText = member.identity.substring(0, 1) + "***";
-                        }else if(member.identity.length === 3){
-                            identityCell.innerText = member.identity.substring(0, 2) + "***";
-                        }else if(member.identity.length > 3){
-                            identityCell.innerText = member.identity.substring(0, 3) + "***";
-                        }
+                        identityCell.innerText = member.identity;
 
                         nameCell.innerText = member.name;
                         genderCell.innerText = member.gender;
                         birthCell.innerText = member.birth;
 
-                        careerButtonCell.innerText = '평가 하기'
-                        gradeButtonCell.innerText = '내 평가 내역'
+                        careerButtonCell.innerText = '평가 및 내역'
 
                         careerButtonCell.classList.add('btn', 'btn-sm', 'btn-primary')
-                        gradeButtonCell.classList.add('btn', 'btn-sm', 'btn-success')
 
                         careerButtonCell.addEventListener('click', () => {
                             createGrade(member.identity);
                         })
-                        gradeButtonCell.addEventListener('click', () => {
-                            getMyGrade(member.identity);
-                        })
 
                         buttonCell1.appendChild(careerButtonCell);
-                        buttonCell2.appendChild(gradeButtonCell);
 
                         row.appendChild(identityCell);
                         row.appendChild(nameCell);
@@ -145,7 +129,6 @@
                         row.appendChild(birthCell);
 
                         row.appendChild(buttonCell1);
-                        row.appendChild(buttonCell2);
 
                         memberAllTable.appendChild(row);
                     });
@@ -157,11 +140,7 @@
     };
 
     function createGrade(identity) {
-        location.href = `../grade/createGrade.html?identity=${identity}`;
-    }
-
-    function getMyGrade(identity) {
-        location.href = `../grade/getMyGrade.html?identity=${identity}`;
+        location.href = `../grade/isGrade.html?identity=${identity}`;
     }
 
     function goIndex() {

@@ -109,15 +109,7 @@
                         const careerButtonCell = document.createElement('button');
                         const gradeButtonCell = document.createElement('button');
 
-                        if(member.identity.length === 1){
-                            identityCell.innerText = "***";
-                        }else if(member.identity.length === 2){
-                            identityCell.innerText = member.identity.substring(0, 1) + "***";
-                        }else if(member.identity.length === 3){
-                            identityCell.innerText = member.identity.substring(0, 2) + "***";
-                        }else if(member.identity.length > 3){
-                            identityCell.innerText = member.identity.substring(0, 3) + "***";
-                        }
+                        identityCell.innerText = member.identity;
 
                         nameCell.innerText = member.name;
                         genderCell.innerText = member.gender;
@@ -161,7 +153,7 @@
     }
 
     function getGrade(identity) {
-        location.href = `../grade/getGradeIdentity.html`;
+        location.href = `../grade/getCorporGrade.html?identity=${identity}`;
     }
 
     function goIndex() {
