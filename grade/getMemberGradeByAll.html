@@ -37,7 +37,7 @@
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none"
                    href="">
-                    구직자 인사 정보
+                    동료 구직자 평가
                 </a>
             </nav>
         </div>
@@ -53,8 +53,7 @@
                     <th class="table-header" scope="col">이름</th>
                     <th class="table-header" scope="col">성별</th>
                     <th class="table-header" scope="col">생년월일</th>
-                    <th class="table-header" scope="col">이력서</th>
-                    <th class="table-header" scope="col">평가 내역</th>
+                    <th class="table-header" scope="col" colspan="2">평가</th>
                 </tr>
                 </thead>
                 <tbody class="table-secondary" id="member-all-data">
@@ -90,6 +89,7 @@
         if (token) {
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         }
+
         // 서버에서 DTO 데이터 가져오기
         axios.get('http://localhost:8000/bbl-member/career/all-career')
             .then(response => {
@@ -123,17 +123,17 @@
                         genderCell.innerText = member.gender;
                         birthCell.innerText = member.birth;
 
-                        careerButtonCell.innerText = '상세보기'
-                        gradeButtonCell.innerText = '상세보기'
+                        careerButtonCell.innerText = '평가 하기'
+                        gradeButtonCell.innerText = '내 평가 내역'
 
                         careerButtonCell.classList.add('btn', 'btn-sm', 'btn-primary')
                         gradeButtonCell.classList.add('btn', 'btn-sm', 'btn-success')
 
                         careerButtonCell.addEventListener('click', () => {
-                            getCareer(member.identity);
+                            createGrade(member.identity);
                         })
                         gradeButtonCell.addEventListener('click', () => {
-                            getGrade(member.identity);
+                            getMyGrade(member.identity);
                         })
 
                         buttonCell1.appendChild(careerButtonCell);
@@ -156,16 +156,16 @@
             .catch(error => console.error(error));
     };
 
-    function getCareer(identity) {
-        location.href = `../career/getCareerIdentity.html?identity=${identity}`;
+    function createGrade(identity) {
+        location.href = `../grade/createGrade.html?identity=${identity}`;
     }
 
-    function getGrade(identity) {
-        location.href = `../grade/getGradeIdentity.html`;
+    function getMyGrade(identity) {
+        location.href = `../grade/getMyGrade.html?identity=${identity}`;
     }
 
     function goIndex() {
-        location.href = "../index/indexCorporate.html";
+        location.href = "../index/indexMember.html";
     }
 </script>
 </html>
