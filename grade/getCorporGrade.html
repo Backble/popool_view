@@ -58,10 +58,11 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">이름</th>
-                    <th scope="col">평가자 수</th>
-                    <th scope="col">총점</th>
-                    <th scope="col"></th>
+                    <th scope="col" style="text-align: center;">이름</th>
+                    <th scope="col" style="text-align: center;">평가자 수</th>
+                    <th scope="col" style="text-align: center;">총점</th>
+                    <th scope="col" style="text-align: center;">랭크</th>
+                    <th scope="col" style="text-align: center;">평가 기간</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -183,10 +184,13 @@
             const totalScoreCell = document.createElement('td');
             const rankCell = document.createElement('td');
 
+            const timeCell = document.createElement('td');
+
             nameCell.textContent = grade.name;
             countCell.textContent = grade.memberCount;
             totalScoreCell.textContent = Math.round(grade.totalAvg * 100) / 100;
 
+            timeCell.textContent = grade.create + " ~ " + grade.update;
 
             const n = parseFloat(totalScoreCell.textContent);
             if(n >= 1.0 && n < 2.5) rankCell.textContent = "BRONZE";
@@ -198,6 +202,8 @@
             tr.appendChild(countCell);
             tr.appendChild(totalScoreCell);
             tr.appendChild(rankCell);
+
+            tr.appendChild(timeCell);
 
             tbody.appendChild(tr);
 
