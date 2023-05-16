@@ -185,7 +185,7 @@
 
             nameCell.textContent = grade.name;
             countCell.textContent = grade.memberCount;
-            totalScoreCell.textContent = grade.totalAvg;
+            totalScoreCell.textContent = Math.round(grade.totalAvg * 100) / 100;
 
 
             const n = parseFloat(totalScoreCell.textContent);
